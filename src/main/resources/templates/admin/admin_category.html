@@ -9,6 +9,7 @@
 <section>
     <div class="table-container border border-primary p-4 m-3">
         <h3>Category List</h3>
+        <a th:href="@{category/addcategory}" class="btn btn-primary btn-sm">Add New</a>
         <form th:action="@{/admin/category/search}" method="get" class="mb-4">
             <div class="input-group">
                 <input type="text" name="searchKey" class="form-control" placeholder="Search by keyword">
@@ -27,7 +28,7 @@
         <tbody>
         <!-- Use Thymeleaf to iterate over the users and populate the table rows -->
         <tr th:each="category : ${category}">
-            <td th:text="${category.category_name}"></td>
+            <td th:text="${category.categoryname}"></td>
 <!--            <td th:text="${category.lastname}"></td>-->
 <!--            <td th:text="${category.user_email}"></td>-->
 <!--            <td>-->

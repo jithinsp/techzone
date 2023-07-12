@@ -23,16 +23,22 @@ public class CategoryController {
         return "admin/admin_category";
     }
 
-    @PostMapping("addcategory")
-    @ResponseBody
-    public String addCategory(@RequestBody Category category){
-        return categoryService.addCategory(category);
+    @GetMapping("category/addcategory")
+    public String showAddCategoryPage(Model model){
+        model.addAttribute("category",new Category());
+        return "admin/addcategory";
+    }
+
+    @PostMapping
+    public String addCategory(@ModelAttribute("category") Category category){
+        categoryService.addCategory(category);
+        return "redirect:/admin/category";
     }
 
     @GetMapping("category/search")
     public String categorySearch(@RequestParam String searchKey, Model model){
-        model.addAttribute("searchKey",categoryService.searchCategory(searchKey));
-        return "/admin/admin_category";
+        model.addAttribute("category",categoryService.searchCategory(searchKey));
+        return "/admin/category";
     }
 
 }
