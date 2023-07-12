@@ -1,0 +1,41 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org"th:replace="user/base::Layout(~{::section})">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+</head>
+<body>
+<section>
+    <div class="container mt-5">
+        <div class="row justify-content-center">
+            <div class="col-md-6">
+                <div class="card bg-light">
+                    <div class="card-body">
+                        <h2 class="text-center mb-4 text-primary">Sign up</h2>
+                        <form th:action="@{/signup}" method="post" class="signup-background" id="signupForm">
+                            <div class="mb-3 ml-5 mr-5">
+                                <input type="text" name="username" class="form-control" placeholder="Username" required="required">
+                            </div>
+                            <div class="mb-3 ml-5 mr-5">
+                                <input type="email" name="email" class="form-control" placeholder="Email" required="required">
+                            </div>
+                            <div class="mb-3 ml-5 mr-5">
+                                <input id="password" type="password" name="password" class="form-control" placeholder="Password" required="required">
+                            </div>
+                            <div class="mb-3 ml-5 mr-5">
+                                <input id="confirmPassword" type="password" name="confirmPassword" class="form-control" placeholder="Confirm Password" required="required">
+                            </div>
+                            <p th:if="${error}" class="text-danger text-center">User name or Email Already Exists!!!</p>
+                            <div class="mb-3 pl-5 pr-5">
+                                <button type="submit" value="Signup" class="btn btn-primary w-100">Signup</button>
+                            </div>
+                            <p class="text-center">Already have an account? <a href="/login">Login here</a></p>
+                        </form>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+</body>
+</html>
