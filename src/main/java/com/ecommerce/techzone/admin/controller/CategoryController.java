@@ -1,7 +1,7 @@
-package com.ecommerce.techzone.controller;
+package com.ecommerce.techzone.admin.controller;
 
 import com.ecommerce.techzone.entity.Category;
-import com.ecommerce.techzone.service.CategoryService;
+import com.ecommerce.techzone.admin.service.CategoryService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -23,17 +23,17 @@ public class CategoryController {
         return "admin/admin_category";
     }
 
-    @GetMapping("category/addcategory")
-    public String showAddCategoryPage(Model model){
-        model.addAttribute("category",new Category());
-        return "admin/addcategory";
-    }
-
-    @PostMapping
-    public String addCategory(@ModelAttribute("category") Category category){
-        categoryService.addCategory(category);
-        return "redirect:/admin/category";
-    }
+//    @GetMapping("category/addcategory")
+//    public String showAddCategoryPage(Model model){
+//        model.addAttribute("addcategory",new Category());
+//        return "admin/addcategory";
+//    }
+//
+//    @PostMapping
+//    public String addCategory(@ModelAttribute("category") Category category){
+//        categoryService.addCategory(category);
+//        return "redirect:/admin/category";
+//    }
 
     @GetMapping("category/search")
     public String categorySearch(@RequestParam String searchKey, Model model){

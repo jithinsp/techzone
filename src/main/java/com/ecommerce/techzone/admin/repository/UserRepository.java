@@ -1,4 +1,4 @@
-package com.ecommerce.techzone.repository;
+package com.ecommerce.techzone.admin.repository;
 
 import com.ecommerce.techzone.entity.User;
 import org.springframework.data.jpa.repository.JpaRepository;

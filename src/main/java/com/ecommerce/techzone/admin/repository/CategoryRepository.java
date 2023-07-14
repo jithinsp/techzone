@@ -1,4 +1,4 @@
-package com.ecommerce.techzone.repository;
+package com.ecommerce.techzone.admin.repository;
 
 import com.ecommerce.techzone.entity.Category;
 import com.ecommerce.techzone.entity.User;

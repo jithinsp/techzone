@@ -11,12 +11,11 @@ import lombok.RequiredArgsConstructor;
 @NoArgsConstructor
 @RequiredArgsConstructor
 @Entity
-public class User {
+public class Admin {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private Integer user_id;
-    private String user_email;
-    private boolean active;
+    private Integer admin_id;
+    private String admin_email;
 
     @Column(name = "firstname")
     private String firstname;
@@ -26,6 +25,5 @@ public class User {
 
     private String password;
 
-    private String UserRoles;
-
+    private String AdminRoles;
 }

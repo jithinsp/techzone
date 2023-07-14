@@ -1,8 +1,7 @@
-package com.ecommerce.techzone.service;
+package com.ecommerce.techzone.admin.service;
 
 import com.ecommerce.techzone.entity.Category;
-import com.ecommerce.techzone.entity.User;
-import com.ecommerce.techzone.repository.CategoryRepository;
+import com.ecommerce.techzone.admin.repository.CategoryRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -18,10 +17,11 @@ public class CategoryService {
         return categoryRepository.findAll();
     }
 
-    public String addCategory(Category category) {
-        categoryRepository.save(category);
-        return "success";
-    }
+
+//    public String addCategory(Category category) {
+//        categoryRepository.save(category);
+//        return "success";
+//    }
 
     public List<Category> searchCategory(String searchKey) {
         List<Category> category = categoryRepository

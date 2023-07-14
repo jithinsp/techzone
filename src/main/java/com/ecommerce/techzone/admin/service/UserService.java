@@ -1,12 +1,11 @@
-package com.ecommerce.techzone.service;
+package com.ecommerce.techzone.admin.service;
 
 import com.ecommerce.techzone.entity.User;
-import com.ecommerce.techzone.repository.UserRepository;
+import com.ecommerce.techzone.admin.repository.UserRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
-import java.util.stream.Collectors;
 
 @Service
 public class UserService {
