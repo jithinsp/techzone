@@ -13,14 +13,18 @@ import java.util.Collections;
 import java.util.stream.Collectors;
 
 @Component
-@AllArgsConstructor
 @NoArgsConstructor
 public class SecurityUser implements UserDetails {
 
-    @Autowired
-    User user;
-    @Autowired
-    Admin admin;
+    public SecurityUser(User user,Admin admin) {
+        super();
+        this.user = user;
+        this.admin=admin;
+    }
+
+    private User user;
+    private Admin admin;
+
     public Collection<? extends GrantedAuthority> getAuthorities() {
         if (user instanceof User) {
             return Arrays.stream(((User) user)

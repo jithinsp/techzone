@@ -29,13 +29,13 @@ public class SecurityConfig {
     @Bean
     public SecurityFilterChain securityFilterChain(HttpSecurity http) throws Exception{
         http.authorizeHttpRequests((authorize)->authorize
-                        .requestMatchers("/signup")
-                        .permitAll()
+                        .requestMatchers("/user/user_signup").permitAll()
+                        .requestMatchers("/user/user_home").permitAll()
                         .anyRequest()
                         .authenticated())
                 .userDetailsService(jpaUserDetailsService)
                 .formLogin()
-                .loginPage("/login")
+                .loginPage("/user/user_login")
                 .permitAll();
         return http.build();
     }
