@@ -1,33 +1,33 @@
 package com.ecommerce.techzone.admin.service;
 
 import com.ecommerce.techzone.entity.User;
-import com.ecommerce.techzone.admin.repository.UserRepository;
+import com.ecommerce.techzone.admin.repository.AdminRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
 
 @Service
-public class UserService {
+public class AdminService {
     @Autowired
-    UserRepository userRepository;
+    AdminRepository adminRepository;
 
     public List<User> getAllUsers() {
-        return userRepository.findAll();
+        return adminRepository.findAll();
     }
 
     public String addUser(User user) {
-        userRepository.save(user);
+        adminRepository.save(user);
         return "success";
     }
 
     public String deleteUser(Integer id) {
-        userRepository.deleteById(id);
+        adminRepository.deleteById(id);
         return "success";
     }
 
     public List<User> searchUser(String searchTerm) {
-        List<User>users = userRepository
+        List<User>users = adminRepository
                 .findByfirstname(searchTerm)
                 .stream()
                 .toList();

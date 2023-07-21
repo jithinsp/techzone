@@ -18,6 +18,6 @@ public class Category {
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
     private UUID uuid;
-    private boolean category_enabled;
+    private boolean category_enabled=true;
     private String categoryname;
 }

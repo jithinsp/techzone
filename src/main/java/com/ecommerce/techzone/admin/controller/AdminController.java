@@ -1,7 +1,7 @@
 package com.ecommerce.techzone.admin.controller;
 
 import com.ecommerce.techzone.entity.User;
-import com.ecommerce.techzone.admin.service.UserService;
+import com.ecommerce.techzone.admin.service.AdminService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -13,19 +13,19 @@ import java.util.List;
 public class AdminController {
 
     @Autowired
-    UserService userService;
+    AdminService adminService;
 
     @GetMapping("getusers")
     public String getAllUsers(Model model){
-        List<User> users = userService.getAllUsers();
-        model.addAttribute("users",users);
+        List<User> users = adminService.getAllUsers();
+        model.addAttribute("listUsers",users);
         return "admin/admin_user_management";
     }
 
     //To implement search
     @GetMapping("getusers/search")
     public String searchUsersByUsername(@RequestParam String searchTerm,Model model) {
-        model.addAttribute("users",userService.searchUser(searchTerm));
+        model.addAttribute("users", adminService.searchUser(searchTerm));
         return "/admin/admin_user_management";
     }
 //    @GetMapping("/adminpanel/edit/{id}")
@@ -43,15 +43,16 @@ public class AdminController {
 //        return "redirect:/adminpanel";
 //    }
 
+
     @PostMapping("adduser")
     @ResponseBody
     public String insertUser(@RequestBody User user){
-        return userService.addUser(user);
+        return adminService.addUser(user);
     }
 
     @GetMapping("getusers/delete/{user_id}")
     public String deleteUser(@PathVariable Integer user_id){
-        userService.deleteUser(user_id);
+        adminService.deleteUser(user_id);
         return "redirect:/admin/getusers";
     }
 

@@ -18,10 +18,10 @@ public class CategoryService {
     }
 
 
-//    public String addCategory(Category category) {
-//        categoryRepository.save(category);
-//        return "success";
-//    }
+    public String addCategory(Category category) {
+        categoryRepository.save(category);
+        return "success";
+    }
 
     public List<Category> searchCategory(String searchKey) {
         List<Category> category = categoryRepository

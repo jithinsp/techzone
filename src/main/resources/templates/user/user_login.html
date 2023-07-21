@@ -24,7 +24,7 @@
                             <button type="submit" value="Login" class="btn btn-primary w-100">Login</button>
                         </div>
                         <p th:if="${error}" class="text-danger text-center">E-mail or Password Incorrect!!!</p>
-                        <p class="text-center">Don't have an account? <a href="/signup">Register here</a></p>
+                        <p class="text-center">Don't have an account? <a th:href="@{/signup}">Register here</a></p>
                     </form>
                 </div>
             </div>

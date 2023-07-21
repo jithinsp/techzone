@@ -9,7 +9,7 @@
 <section>
     <div class="table-container border border-primary p-4 m-3">
         <h3>Category List</h3>
-<!--        <a th:href="@{category/addcategory}" class="btn btn-primary btn-sm">Add New</a>-->
+        <a th:href="@{/admin/category/addcategory}"  class="btn btn-primary btn-sm">Add New</a>
         <form th:action="@{/admin/category/search}" method="get" class="mb-4">
             <div class="input-group">
                 <input type="text" name="searchKey" class="form-control" placeholder="Search by keyword">
