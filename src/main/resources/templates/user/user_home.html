@@ -1,20 +1,59 @@
 <!DOCTYPE html>
-<html lang="en" xmlns:th="http://www.thymeleaf.org"th:replace="user/admin_base::Layout(~{::section})">
+<html lang="en" xmlns:th="http://www.thymeleaf.org"th:replace="user/base::Layout(~{::section})">
 <head>
     <meta charset="UTF-8">
     <title>Home</title>
 </head>
 <body>
 <section>
+    <!-- Banner Section -->
+    <section id="banner" class="jumbotron text-center">
     <div class="container">
-        <div class="container p-5">
-            <h2>Hi, <span th:text="${username}"></span>!</h2>
-        </div>
-        <h2>Welcome to Home page!!!</h2>
         <form th:action="@{/logout}" method="post">
             <input class="btn btn-success" type="submit" value="Logout">
         </form>
     </div>
+        <h2>Hi, <span th:text="${userName}"></span>!</h2>
+        <h1>Welcome to TechZone</h1>
+        <p>Find the best products for all your needs.</p>
+        <!-- Add a CTA button -->
+        <a href="#" class="btn btn-primary btn-lg">Shop Now</a>
+    </section>
+
+    <!-- Category Section -->
+    <section id="categories" class="container mt-4">
+        <h2 class="text-center mb-4">Shop by Categories</h2>
+        <div class="row">
+            <div class="col-lg-3 col-md-4 col-sm-6 mb-4" th:each="category : ${categories}">
+                <div class="card">
+                    <img th:src="@{/user/category/{id}(id=${category.id})}" class="card-img-top" alt="Category Image">
+                    <div class="card-body">
+                        <h5 class="card-title" th:text="${category.name}">Category Name</h5>
+                        <a href="#" class="btn btn-primary">Explore</a>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Products Section -->
+    <section id="products" class="container mt-4">
+        <h2 class="text-center mb-4">Featured Products</h2>
+        <div class="row">
+            <div class="col-lg-3 col-md-4 col-sm-6 mb-4" th:each="product : ${products}">
+                <div class="card">
+                    <img th:src="@{/user/product/{id}(id=${product.id})}" class="card-img-top" alt="Product Image">
+                    <div class="card-body">
+                        <h5 class="card-title" th:text="${product.name}">Product Name</h5>
+                        <p class="card-text" th:text="${product.description}">Description of Product</p>
+                        <p class="card-text" th:text="${'Price: $' + product.price}">Price: $X.XX</p>
+                        <a href="#" class="btn btn-primary">Add to Cart</a>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
 </section>
 </body>
 </html>

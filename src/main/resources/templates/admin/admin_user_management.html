@@ -21,27 +21,26 @@
             <th>First Name</th>
             <th>Last Name</th>
             <th>Email</th>
+            <th>Phone</th>
             <th>Status</th>
-            <th>Actions</th>
+<!--            <th>Actions</th>-->
         </tr>
         </thead>
         <tbody>
         <!-- Use Thymeleaf to iterate over the users and populate the table rows -->
         <tr th:each="user : ${listUsers}">
-            <td th:text="${user.firstname}"></td>
-            <td th:text="${user.lastname}"></td>
-            <td th:text="${user.userEmail}"></td>
+            <td th:text="${user.firstName}"></td>
+            <td th:text="${user.lastName}"></td>
+            <td th:text="${user.email}"></td>
+            <td th:text="${user.phone}"></td>
             <td>
-                <a th:if="${user.enabled==true}" class="btn btn-success" href="">Block</a>
-                <a th:if="${user.enabled==false}" class="btn btn-danger" href="">Unblock</a>
+                <a th:if="${user.enabled==true}" th:href="@{'/admin/getusers/block/' + ${user.uuid}}" class="btn btn-success" href="">Block</a>
+                <a th:if="${user.enabled==false}" th:href="@{'/admin/getusers/unblock/' + ${user.uuid}}" class="btn btn-danger" href="">Unblock</a>
             </td>
-            <td>
-                <a class="btn btn-outline-primary" href="">Edit</a>
-                <a class="btn btn-danger" href="">Delete</a>
-
-<!--                <a th:href="@{'/admin/getusers/block/' + ${user.user_id}}" class="btn btn-warning btn-sm">Block</a>-->
-<!--                <a th:href="@{'/admin/getusers/delete/' + ${user.user_id}}" class="btn btn-danger btn-sm">Delete</a>-->
-            </td>
+<!--            <td>-->
+<!--                <a class="btn btn-outline-primary" th:href="@{'/admin/getusers/edit/' + ${user.uuid}}">Edit</a>-->
+<!--                <a class="btn btn-danger" th:href="@{'/admin/getusers/delete/' + ${user.uuid}}" href="">Delete</a>-->
+<!--           </td>-->
         </tr>
         </tbody>
     </table>

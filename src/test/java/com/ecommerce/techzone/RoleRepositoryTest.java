@@ -1,7 +1,6 @@
 package com.ecommerce.techzone;
 
-import com.ecommerce.techzone.admin.repository.RoleRepository;
-import com.ecommerce.techzone.entity.Role;
+import com.ecommerce.techzone.entity.user.Role;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.autoconfigure.jdbc.AutoConfigureTestDatabase;
@@ -15,12 +14,12 @@ import java.util.List;
 @Rollback(value = false)
 public class RoleRepositoryTest {
 
-    @Autowired
-    RoleRepository roleRepository;
-    @Test
-    public void createRoles(){
-        Role roleAdmin = new Role("Admin","manage everything");
-        Role roleUser = new Role("User","browse and buy everything");
-        roleRepository.saveAll(List.of(roleAdmin,roleUser));
-    }
+//    @Autowired
+//    RoleRepository roleRepository;
+//    @Test
+//    public void createRoles(){
+////        Role roleAdmin = new Role(UserRoles.ADMIN,"manage everything");
+////        Role roleUser = new Role(UserRoles.USER,"browse and buy everything");
+////        roleRepository.saveAll(List.of(roleAdmin,roleUser));
+//    }
 }

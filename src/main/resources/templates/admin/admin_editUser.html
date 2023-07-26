@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html lang="en" xmlns:th="http://www.thymeleaf.org"th:replace="user/base::Layout(~{::section})">
+<html lang="en" xmlns:th="http://www.thymeleaf.org" th:replace="~{admin/admin_base::Layout(~{::section})}">
 <head>
     <meta charset="UTF-8">
     <title>User signup</title>
@@ -14,19 +14,13 @@
                         <h2 class="text-center mb-4 text-primary">Sign up</h2>
                         <form th:action="@{/users/save}" th:object= "${user}" method="post" class="signup-background" id="signupForm">
                             <div class="mb-3 ml-5 mr-5">
-                                <input type="text" name="username" th:field="*{Username}" class="form-control" placeholder="Username" required="required">
+                                <input type="text" name="firstname" th:field="*{firstname}" class="form-control" placeholder="Firstname" required="required">
                             </div>
                             <div class="mb-3 ml-5 mr-5">
-                                <input type="text" name="firstname" th:field="*{firstName}" class="form-control" placeholder="Firstname" required="required">
+                                <input type="text" name="lastname" th:field="*{lastname}" class="form-control" placeholder="Lastname" required="required">
                             </div>
                             <div class="mb-3 ml-5 mr-5">
-                                <input type="text" name="lastname" th:field="*{lastName}" class="form-control" placeholder="Lastname" required="required">
-                            </div>
-                            <div class="mb-3 ml-5 mr-5">
-                                <input type="email" name="email" th:field="*{email}" class="form-control" placeholder="Email" required="required">
-                            </div>
-                            <div class="mb-3 ml-5 mr-5">
-                                <input type="number" name="phone" th:field="*{phone}" class="form-control" placeholder="Phone number" required="required">
+                                <input type="email" name="email" th:field="*{userEmail}" class="form-control" placeholder="Email" required="required">
                             </div>
                             <div class="mb-3 ml-5 mr-5">
                                 <input id="password" type="password" name="password" th:field="*{password}" class="form-control" placeholder="Password" required="required">
@@ -34,11 +28,10 @@
                             <div class="mb-3 ml-5 mr-5">
                                 <input id="confirmPassword" type="password" name="confirmPassword" class="form-control" placeholder="Confirm Password" required="required">
                             </div>
+                            <p th:if="${errorMsg}" class="text-danger text-center">Email Already Exists!!!</p>
                             <div class="mb-3 pl-5 pr-5">
-                                <button type="submit" value="Signup" class="btn btn-primary w-100">Signup</button>
+                                <button type="submit" value="Signup" class="btn btn-primary w-100">Save</button>
                             </div>
-                            <p th:if="${errorMsg}" class="text-danger text-center"></p>
-                            <p class="text-center">Already have an account? <a href="/login">Login here</a></p>
                         </form>
                     </div>
                 </div>

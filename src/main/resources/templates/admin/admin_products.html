@@ -9,8 +9,8 @@
 <section>
     <div class="table-container border border-primary p-4 m-3">
         <h3>Category List</h3>
-        <a th:href="@{/admin/category/addcategory}"  class="btn btn-primary btn-sm">Add New</a>
-        <form th:action="@{/admin/category/search}" method="get" class="mb-4">
+        <a th:href="@{/admin/products/addproduct}"  class="btn btn-primary btn-sm">Add New</a>
+        <form th:action="@{/admin/product/search}" method="get" class="mb-4">
             <div class="input-group">
                 <input type="text" name="searchKey" class="form-control" placeholder="Search by keyword">
                 <button type="submit" class="btn btn-info">Search</button>
@@ -19,7 +19,8 @@
     <table class="table table-bordered ">
         <thead>
         <tr>
-            <th>Category Name</th>
+            <th>ID</th>
+            <th>Product Name</th>
             <th>Description</th>
             <th>Status</th>
             <th>Actions</th>
@@ -27,16 +28,16 @@
         </thead>
         <tbody>
         <!-- Use Thymeleaf to iterate over the users and populate the table rows -->
-        <tr th:each="category : ${category}">
-            <td th:text="${category.name}"></td>
-            <td th:text="${category.description}"></td>
+        <tr th:each="product : ${product}">
+            <td th:text="${product.uuid}"></td>
+            <td th:text="${product.name}"></td>
             <td>
-                <a th:if="${category.enabled==true}" th:href="@{'/admin/category/block/' + ${category.uuid}}" class="btn btn-success" href="">Block</a>
-                <a th:if="${category.enabled==false}" th:href="@{'/admin/category/unblock/' + ${category.uuid}}" class="btn btn-danger" href="">Unblock</a>
+                <a th:if="${product.enabled==true}" th:href="@{'/admin/product/block/' + ${product.uuid}}" class="btn btn-success" href="">Block</a>
+                <a th:if="${product.enabled==false}" th:href="@{'/admin/product/unblock/' + ${product.uuid}}" class="btn btn-danger" href="">Unblock</a>
             </td>
             <td>
-                <a class="btn btn-outline-primary" th:href="@{'/admin/category/edit/' + ${category.uuid}}">Edit</a>
-                <a class="btn btn-danger" th:href="@{'/admin/category/delete/' + ${category.uuid}}" href="">Delete</a>
+                <a class="btn btn-outline-primary" th:href="@{'/admin/product/edit/' + ${product.uuid}}">Edit</a>
+                <a class="btn btn-danger" th:href="@{'/admin/product/delete/' + ${product.uuid}}" href="">Delete</a>
             </td>
         </tr>
         </tbody>

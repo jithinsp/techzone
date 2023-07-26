@@ -4,3 +4,4 @@
 *.custom-dark {color: 172337}
 *.custom-yellow {color: #ffdf00}
 *.custom-white {color: white}
+.body{min-height: 100vh;}

@@ -1,6 +1,6 @@
 package com.ecommerce.techzone.entity;
 
-import javax.persistence.*;
+
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
@@ -8,7 +8,7 @@ import lombok.ToString;
 import org.hibernate.annotations.GenericGenerator;
 import org.hibernate.annotations.Type;
 
-import java.util.ArrayList;
+import javax.persistence.*;
 import java.util.List;
 import java.util.UUID;
 
@@ -16,25 +16,26 @@ import java.util.UUID;
 @NoArgsConstructor
 @Data
 @Entity
-public class Category {
+public class Product {
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO, generator = "uuid2")
     @GenericGenerator(name = "uuid2", strategy = "uuid2")
     @Type(type = "org.hibernate.type.UUIDCharType")
     private UUID uuid;
 
-    private boolean category_enabled=true;
-    @Column(unique=true)
     private String name;
+
+    @Lob
     private String description;
+
+    private boolean enabled=true;
 
     @Column(name = "is_deleted")
     private boolean isdeleted=false;
 
-    private boolean enabled=true;
-
     //relationships
-    @OneToMany(mappedBy = "category")
-    @ToString.Exclude
-    private List<Product> products = new ArrayList<>();
+    @ManyToOne
+    @JoinColumn(name = "category_id")
+    private Category category;
+
 }

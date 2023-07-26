@@ -4,13 +4,18 @@
     <!-- This is the parent page template and all other pages are its child pages. This page acts as a template
       This page enables code reusability. The commonly repeated portions of all pages can be designed here-->
     <meta charset="UTF-8">
-    <title>Admin</title>
+    <title>TechZone</title>
     <link rel="stylesheet" th:href="@{/webjars/bootstrap/5.2.3/css/bootstrap.min.css}" />
     <link rel="stylesheet" type="text/css" th:href="@{/fontawesome/all.js}" />
     <link rel="stylesheet" type="text/css" th:href="@{/style.css}" />
-
+    <style>
+        body {
+            min-height: 100vh;
+        }
+    </style>
 </head>
 <body>
+<div class="d-flex flex-column min-vh-100">
 <!--Nav bar starts here-->
 <nav class="navbar navbar-expand-lg navbar-dark bg-primary">
     <div class="container-fluid">
@@ -30,20 +35,20 @@
                     <a class="nav-link" th:href="@{/admin/getusers}">Users</a>
                 </li>
                 <li class="nav-item">
-                    <a class="nav-link" th:href="@{/}">Products</a>
+                    <a class="nav-link" th:href="@{/admin/category}">Category</a>
                 </li>
                 <li class="nav-item">
-                    <a class="nav-link" th:href="@{/admin_category}">Category</a>
+                    <a class="nav-link" th:href="@{/admin/products}">Products</a>
                 </li>
-                <li class="nav-item">
-                    <a class="nav-link" th:href="@{/}">Orders</a>
-                </li>
-                <li class="nav-item">
-                    <a class="nav-link" th:href="@{/}">Payment Methods</a>
-                </li>
-                <li class="nav-item">
-                    <a class="nav-link" th:href="@{/}">Sales report</a>
-                </li>
+<!--                <li class="nav-item">-->
+<!--                    <a class="nav-link" th:href="@{/}">Orders</a>-->
+<!--                </li>-->
+<!--                <li class="nav-item">-->
+<!--                    <a class="nav-link" th:href="@{/}">Payment Methods</a>-->
+<!--                </li>-->
+<!--                <li class="nav-item">-->
+<!--                    <a class="nav-link" th:href="@{/}">Sales report</a>-->
+<!--                </li>-->
             </ul>
             <form th:action="@{/logout}" method="post" style="display: inline;">
                 <button type="submit" class="btn custom-yellow">Logout</button>
@@ -59,6 +64,7 @@
         <span class="text-muted">&copy; 2023 TechZone. All rights reserved</span>
     </div>
 </footer>
+</div>
 <script th:src="@{/webjars/bootstrap/5.2.3/js/bootstrap.bundle.min.js}"></script>
 <script th:src="@{/webjars/jquery/3.5.1/jquery.min.js}"></script>
 </body>
