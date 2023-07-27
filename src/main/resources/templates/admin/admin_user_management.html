@@ -23,7 +23,6 @@
             <th>Email</th>
             <th>Phone</th>
             <th>Status</th>
-<!--            <th>Actions</th>-->
         </tr>
         </thead>
         <tbody>
@@ -37,10 +36,6 @@
                 <a th:if="${user.enabled==true}" th:href="@{'/admin/getusers/block/' + ${user.uuid}}" class="btn btn-success" href="">Block</a>
                 <a th:if="${user.enabled==false}" th:href="@{'/admin/getusers/unblock/' + ${user.uuid}}" class="btn btn-danger" href="">Unblock</a>
             </td>
-<!--            <td>-->
-<!--                <a class="btn btn-outline-primary" th:href="@{'/admin/getusers/edit/' + ${user.uuid}}">Edit</a>-->
-<!--                <a class="btn btn-danger" th:href="@{'/admin/getusers/delete/' + ${user.uuid}}" href="">Delete</a>-->
-<!--           </td>-->
         </tr>
         </tbody>
     </table>

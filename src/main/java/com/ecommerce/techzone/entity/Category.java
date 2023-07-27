@@ -23,7 +23,6 @@ public class Category {
     @Type(type = "org.hibernate.type.UUIDCharType")
     private UUID uuid;
 
-    private boolean category_enabled=true;
     @Column(unique=true)
     private String name;
     private String description;

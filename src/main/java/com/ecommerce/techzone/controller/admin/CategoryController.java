@@ -8,6 +8,7 @@ import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
+import java.util.UUID;
 
 @Controller
 @RequestMapping("/admin/")
@@ -22,7 +23,6 @@ public class CategoryController {
         model.addAttribute("category",category);
         return "admin/admin_category";
     }
-
 
     //To show add category page
     @GetMapping("category/addcategory")
@@ -42,6 +42,18 @@ public class CategoryController {
     public String categorySearch(@RequestParam String searchKey, Model model){
         model.addAttribute("category",categoryService.searchCategory(searchKey));
         return "/admin/admin_category";
+    }
+
+    @GetMapping("category/disable/{category_id}")
+    public String blockCatgegory(@PathVariable UUID category_id){
+        categoryService.disableCategory(category_id);
+        return "redirect:/admin/category";
+    }
+
+    @GetMapping("category/enable/{category_id}")
+    public String unblockCategory(@PathVariable UUID category_id){
+        categoryService.enableCategory(category_id);
+        return "redirect:/admin/category";
     }
 
 }

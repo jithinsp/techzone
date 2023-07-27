@@ -31,13 +31,12 @@
             <td th:text="${category.name}"></td>
             <td th:text="${category.description}"></td>
             <td>
-                <a th:if="${category.enabled==true}" th:href="@{'/admin/category/block/' + ${category.uuid}}" class="btn btn-success" href="">Block</a>
-                <a th:if="${category.enabled==false}" th:href="@{'/admin/category/unblock/' + ${category.uuid}}" class="btn btn-danger" href="">Unblock</a>
+                <a th:if="${category.isdeleted==true}" th:href="@{'/admin/category/disable/' + ${category.uuid}}" class="btn btn-success" href="">Disable</a>
+                <a th:if="${category.isdeleted==false}" th:href="@{'/admin/category/enable/' + ${category.uuid}}" class="btn btn-danger" href="">Enable</a>
             </td>
-            <td>
-                <a class="btn btn-outline-primary" th:href="@{'/admin/category/edit/' + ${category.uuid}}">Edit</a>
-                <a class="btn btn-danger" th:href="@{'/admin/category/delete/' + ${category.uuid}}" href="">Delete</a>
-            </td>
+<!--            <td>-->
+<!--                <a class="btn btn-outline-primary" th:href="@{'/admin/category/edit/' + ${category.uuid}}">Edit</a>-->
+<!--            </td>-->
         </tr>
         </tbody>
     </table>

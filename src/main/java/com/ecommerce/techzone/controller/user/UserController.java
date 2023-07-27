@@ -75,7 +75,6 @@ public class UserController {
 
     }
 
-
     @ResponseBody //to enable rest
     @PostMapping("/users/check_email")
     public String checkDuplicateEmail(@Param("email") String email){
