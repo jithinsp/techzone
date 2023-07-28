@@ -13,11 +13,12 @@ import java.util.UUID;
 @Repository
 public interface AdminRepository extends JpaRepository<User, UUID> {
 
+    Page<User> findByUsername(String firstName, Pageable pageable);
     Optional<User> findByUsername(String firstName);
 
-    Optional<User> findByUsernameIgnoreCaseLike(String firstName);
+    Page<User> findByUsernameIgnoreCaseLike(String firstName, Pageable pageable);
     Optional<User> findByEmail(String email);
 
-    @Query(value = "SELECT * FROM user WHERE username LIKE :keyword% OR phone LIKE :keyword% OR phone LIKE :keyword% OR first_name LIKE :keyword% OR last_name LIKE :keyword% OR uuid like :keyword%", nativeQuery = true)
+    @Query(value = "SELECT * FROM user WHERE username LIKE :keyword% OR phone LIKE :keyword% OR phone LIKE :keyword% OR firstname LIKE :keyword% OR lastname LIKE :keyword% OR user_id like :keyword%", nativeQuery = true)
     Page<User> search(String keyword, Pageable pageable);
 }

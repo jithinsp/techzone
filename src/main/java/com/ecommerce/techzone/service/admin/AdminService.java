@@ -17,8 +17,8 @@ public class AdminService {
     @Autowired
     AdminRepository adminRepository;
 
-    public List<User> getAllUsers() {
-        return adminRepository.findAll();
+    public Page<User> getAllUsers(Pageable pageable) {
+        return adminRepository.findAll(pageable);
     }
 
     public String addUser(User user) {
@@ -31,11 +31,8 @@ public class AdminService {
         return "success";
     }
 
-    public List<User> searchUser(String searchTerm) {
-        List<User>users = adminRepository
-                .findByUsername(searchTerm)
-                .stream()
-                .toList();
+    public Page<User> searchUser(String searchTerm, Pageable pageable) {
+        Page<User>users = adminRepository.search(searchTerm, pageable);
         return users;
     }
 

@@ -1,0 +1,40 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org" th:replace="admin/admin_base::Layout(~{::section})">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Edit product</title>
+</head>
+<body>
+<section>
+<div class="container mt-5">
+    <div class="row justify-content-center">
+        <div class="col-md-6">
+            <div class="card bg-light">
+                <div class="card-body">
+                    <h2 class="text-center mb-4 text-primary">Edit product</h2>
+                    <form th:action="@{/admin/product/update}" th:object="${product}" method="post" class="login-background">
+                        <input type="hidden" th:field="*{uuid}" />
+                        <div class="mb-3 ml-5 mr-5">
+                            <input type="text" th:field="*{name}" name="product_name" class="form-control" placeholder="Product name" required="required">
+                        </div>
+                        <div class="mb-3 ml-5 mr-5">
+                            <input type="text" th:field="*{description}" name="product_description" class="form-control" placeholder="Product description">
+                        </div>
+                        <div class="mb-3 ml-5 mr-5">
+                            <input type="hidden" th:field="*{category}" name="category" class="form-control" placeholder="Category">
+                        </div>
+
+                        <div class="mb-3 pl-5 pr-5">
+                            <button type="submit" value="add" class="btn btn-primary w-100">Save changes</button>
+                        </div>
+                        <p th:if="${error}" class="text-danger text-center">Product already exists</p>
+                    </form>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+</section>
+</body>
+</html>

@@ -26,7 +26,8 @@ public class UserController {
 
     //to show login page
     @GetMapping("/login")
-    public String showLoginForm(@RequestParam(value = "error", required = false) String error, Model model) {
+    public String showLoginForm(
+            @RequestParam(value = "error", required = false) String error, Model model) {
         System.out.println("inside login1");
         Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
         if (authentication == null || authentication instanceof AnonymousAuthenticationToken) {
@@ -38,14 +39,14 @@ public class UserController {
             return "user/user_login";
         }
         System.out.println("inside login3");
-        return "redirect:/";
+        return "redirect:/app/";
     }
 
     @PostMapping("/login")
     public String login(@RequestBody User user, Model model){
         System.out.println("inside login post");
-//        userService.findByEmail();
-        if(!user.isVerified()){
+        User newUser =userService.findByUsername(user.getUsername());
+        if(!newUser.isVerified()){
             System.out.println("inside login to otp page");
             return "user/enterOtp";
         }
@@ -82,10 +83,10 @@ public class UserController {
         return userService.isEmailUnique(email)? "OK" : "Duplicated";
     }
 
-    @GetMapping("/")
-    public String userHome(@AuthenticationPrincipal(expression = "firstname") String firstname, Model model) {
-        Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
-        System.out.println("inside userhome");
+//    @GetMapping("/")
+//    public String userHome(@AuthenticationPrincipal(expression = "firstname") String firstname, Model model) {
+//        Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
+//        System.out.println("inside userhome");
 //        boolean isAdmin = authentication.getAuthorities().stream()
 //                .anyMatch(authority -> authority.getAuthority().equals("ROLE_ADMIN"));
 //
@@ -93,7 +94,7 @@ public class UserController {
 //            System.out.println("admin");
 //            return "redirect:/admin/admin_dashboard";
 //        }
-        model.addAttribute("firstname", firstname); //To display username on home page, also the params passed
-        return "/user/user_home";
-    }
+//        model.addAttribute("firstname", firstname); //To display username on home page, also the params passed
+//        return "/user/user_home";
+//    }
 }

@@ -38,4 +38,8 @@ public class Product {
     @JoinColumn(name = "category_id")
     private Category category;
 
+    @OneToMany(mappedBy = "product_id")
+    @ToString.Exclude
+    private List<Image> images;
+
 }

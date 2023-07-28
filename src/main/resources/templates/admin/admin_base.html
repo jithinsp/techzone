@@ -19,7 +19,7 @@
 <!--Nav bar starts here-->
 <nav class="navbar navbar-expand-lg navbar-dark bg-primary">
     <div class="container-fluid">
-        <a class="navbar-brand" th:href="@{/}">TechZone
+        <a class="navbar-brand" th:href="@{/admin/dashboard}">TechZone
 <!--  for logo===>      <img th:src="@{/images/path.png}" />  -->
 
         </a>
@@ -29,7 +29,7 @@
         <div class="collapse navbar-collapse d-flex justify-content-between" id="navbarSupportedContent">
             <ul class="navbar-nav me-auto mb-2 mb-lg-0">
                 <li class="nav-item">
-                    <a class="nav-link active" aria-current="page" th:href="@{/admin_dashboard}">Dashboard</a>
+                    <a class="nav-link" th:href="@{/admin/dashboard}">Dashboard</a>
                 </li>
                 <li class="nav-item">
                     <a class="nav-link" th:href="@{/admin/getusers}">Users</a>
@@ -38,7 +38,7 @@
                     <a class="nav-link" th:href="@{/admin/category}">Category</a>
                 </li>
                 <li class="nav-item">
-                    <a class="nav-link" th:href="@{/admin/products}">Products</a>
+                    <a class="nav-link" th:href="@{/admin/product}">Products</a>
                 </li>
 <!--                <li class="nav-item">-->
 <!--                    <a class="nav-link" th:href="@{/}">Orders</a>-->
@@ -51,7 +51,7 @@
 <!--                </li>-->
             </ul>
             <form th:action="@{/logout}" method="post" style="display: inline;">
-                <button type="submit" class="btn custom-yellow">Logout</button>
+                <button type="submit" class="btn btn-outline-white">Logout</button>
             </form>
         </div>
     </div>
@@ -59,11 +59,11 @@
 <!--Nav bar ends here-->
     <div th:replace="${content}"></div>
 <!--Footer starts here-->
-<footer class="footer mt-auto py-3 position-absolute bottom-0 start-0 text-center">
-    <div class="container">
-        <span class="text-muted">&copy; 2023 TechZone. All rights reserved</span>
-    </div>
-</footer>
+    <footer class="footer mt-auto py-3 text-center">
+        <div class="container">
+            <span class="text-muted">&copy; 2023 TechZone. All rights reserved</span>
+        </div>
+    </footer>
 </div>
 <script th:src="@{/webjars/bootstrap/5.2.3/js/bootstrap.bundle.min.js}"></script>
 <script th:src="@{/webjars/jquery/3.5.1/jquery.min.js}"></script>

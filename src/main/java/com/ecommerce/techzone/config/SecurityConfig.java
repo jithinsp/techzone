@@ -20,8 +20,8 @@ public class SecurityConfig {
     //CONFIGURING USERS
     @Bean
     public UserDetailsService userDetailsService(){
-//        UserDetails admin = User.withUsername("root")
-//                .password(passwordEncoder().encode("admin"))
+//        UserDetails admin = User.withUsername("admin")
+//                .password(passwordEncoder().encode("admin123"))
 //                .roles("ROLE_ADMIN")
 //                .build();
 //

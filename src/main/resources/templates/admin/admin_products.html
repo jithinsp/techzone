@@ -8,20 +8,28 @@
 <body>
 <section>
     <div class="table-container border border-primary p-4 m-3">
-        <h3>Category List</h3>
-        <a th:href="@{/admin/products/addProduct}"  class="btn btn-primary btn-sm">Add New</a>
-        <form th:action="@{/admin/product/search}" method="get" class="mb-4">
-            <div class="input-group">
-                <input type="text" name="searchKey" class="form-control" placeholder="Search by keyword">
-                <button type="submit" class="btn btn-info">Search</button>
+        <h3>Products List</h3>
+        <div class="row">
+            <div class="col-md-6">
+                <form th:action="@{/admin/product/search}" method="get" class="mb-4">
+                    <div class="input-group">
+                        <input type="text" name="searchKey" class="form-control" placeholder="Search by keyword">
+                        <button type="submit" class="btn btn-info">Search</button>
+                    </div>
+                </form>
             </div>
-        </form>
-    <table class="table table-bordered ">
+            <div class="col-md-6 text-md-end">
+                <a th:href="@{/admin/product/addproduct}" class="btn btn-primary">Add New</a>
+            </div>
+        </div>
+
+        <table class="table table-bordered ">
         <thead>
         <tr>
             <th>ID</th>
             <th>Product Name</th>
             <th>Description</th>
+            <th>Category</th>
             <th>Status</th>
             <th>Actions</th>
         </tr>
@@ -32,9 +40,10 @@
             <td th:text="${product.uuid}"></td>
             <td th:text="${product.name}"></td>
             <td th:text="${product.description}"></td>
+            <td th:text="${product.category.name}"></td>
             <td>
-                <a th:if="${product.isdeleted==true}" th:href="@{'/admin/product/disable/' + ${product.uuid}}" class="btn btn-success" href="">Disable</a>
-                <a th:if="${product.isdeleted==false}" th:href="@{'/admin/product/enable/' + ${product.uuid}}" class="btn btn-danger" href="">Enable</a>
+                <a th:if="${product.isdeleted==true}" th:href="@{'/admin/product/disable/' + ${product.uuid}}" class="btn btn-danger" href="">Disable</a>
+                <a th:if="${product.isdeleted==false}" th:href="@{'/admin/product/enable/' + ${product.uuid}}" class="btn btn-success" href="">Enable</a>
             </td>
             <td>
                 <a class="btn btn-outline-primary" th:href="@{'/admin/product/edit/' + ${product.uuid}}">Edit</a>
@@ -42,6 +51,20 @@
         </tr>
         </tbody>
     </table>
+        <div th:if="${product.totalPages > 1}">
+            <ul class="pagination justify-content-center">
+                <li th:if="${!product.first}" class="page-item">
+                    <a class="page-link" th:href="@{${'/admin/product/?page=' + (product.number - 1)}}">Previous</a>
+                </li>
+                <li th:each="page : ${#numbers.sequence(0, product.totalPages - 1)}"
+                    th:class="${product.number == page ? 'page-item active' : 'page-item'}">
+                    <a class="page-link" th:href="@{${'/admin/product/?page=' + page}}" th:text="${page + 1}"></a>
+                </li>
+                <li th:if="${!product.last}" class="page-item">
+                    <a class="page-link" th:href="@{${'/admin/product/?page=' + (product.number + 1)}}">Next</a>
+                </li>
+            </ul>
+        </div>
     </div>
 </section>
 </body>

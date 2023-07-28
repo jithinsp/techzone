@@ -9,16 +9,24 @@
 <section>
     <div class="table-container border border-primary p-4 m-3">
         <h3>Category List</h3>
-        <a th:href="@{/admin/category/addcategory}"  class="btn btn-primary btn-sm">Add New</a>
-        <form th:action="@{/admin/category/search}" method="get" class="mb-4">
-            <div class="input-group">
-                <input type="text" name="searchKey" class="form-control" placeholder="Search by keyword">
-                <button type="submit" class="btn btn-info">Search</button>
+        <div class="row">
+            <div class="col-md-6">
+
+                <form th:action="@{/admin/category/search}" method="get" class="mb-4">
+                    <div class="input-group">
+                        <input type="text" name="searchKey" class="form-control" placeholder="Search by keyword">
+                        <button type="submit" class="btn btn-info">Search</button>
+                    </div>
+                </form>
             </div>
-        </form>
+            <div class="col-md-6 text-md-end">
+                <a th:href="@{/admin/category/addcategory}"  class="btn btn-primary">Add New</a>
+            </div>
+        </div>
     <table class="table table-bordered ">
         <thead>
         <tr>
+            <th>ID</th>
             <th>Category Name</th>
             <th>Description</th>
             <th>Status</th>
@@ -28,18 +36,34 @@
         <tbody>
         <!-- Use Thymeleaf to iterate over the users and populate the table rows -->
         <tr th:each="category : ${category}">
+            <td th:text="${category.uuid}"></td>
             <td th:text="${category.name}"></td>
             <td th:text="${category.description}"></td>
             <td>
-                <a th:if="${category.isdeleted==true}" th:href="@{'/admin/category/disable/' + ${category.uuid}}" class="btn btn-success" href="">Disable</a>
-                <a th:if="${category.isdeleted==false}" th:href="@{'/admin/category/enable/' + ${category.uuid}}" class="btn btn-danger" href="">Enable</a>
+                <a th:if="${category.isdeleted==true}" th:href="@{'/admin/category/disable/' + ${category.uuid}}" class="btn btn-danger" href="">Disable</a>
+                <a th:if="${category.isdeleted==false}" th:href="@{'/admin/category/enable/' + ${category.uuid}}" class="btn btn-success" href="">Enable</a>
             </td>
-<!--            <td>-->
-<!--                <a class="btn btn-outline-primary" th:href="@{'/admin/category/edit/' + ${category.uuid}}">Edit</a>-->
-<!--            </td>-->
+            <td>
+                <a class="btn btn-outline-primary" th:href="@{'/admin/category/edit/' + ${category.uuid}}">Edit</a>
+            </td>
         </tr>
         </tbody>
     </table>
+        <div th:if="${category.totalPages > 1}">
+            <ul class="pagination justify-content-center">
+                <li th:if="${!category.first}" class="page-item">
+                    <a class="page-link" th:href="@{${'/admin/category/?page=' + (category.number - 1)}}">Previous</a>
+                </li>
+                <li th:each="page : ${#numbers.sequence(0, category.totalPages - 1)}"
+                    th:class="${category.number == page ? 'page-item active' : 'page-item'}">
+                    <a class="page-link" th:href="@{${'/admin/category/?page=' + page}}" th:text="${page + 1}"></a>
+                </li>
+                <li th:if="${!category.last}" class="page-item">
+                    <a class="page-link" th:href="@{${'/admin/category/?page=' + (category.number + 1)}}">Next</a>
+                </li>
+            </ul>
+        </div>
+
     </div>
 </section>
 </body>

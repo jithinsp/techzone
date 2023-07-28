@@ -1,33 +1,89 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="en" xmlns:th="http://www.thymeleaf.org"th:replace="user/base::Layout(~{::section})">
 <head>
     <meta charset="UTF-8">
-    <title>Firebase</title>
-  <script type="module">
-  // Import the functions you need from the SDKs you need
-  import { initializeApp } from "https://www.gstatic.com/firebasejs/10.0.0/firebase-app.js";
-  import { getAnalytics } from "https://www.gstatic.com/firebasejs/10.0.0/firebase-analytics.js";
-  // TODO: Add SDKs for Firebase products that you want to use
-  // https://firebase.google.com/docs/web/setup#available-libraries
-
-  // Your web app's Firebase configuration
-  // For Firebase JS SDK v7.20.0 and later, measurementId is optional
-  const firebaseConfig = {
-    apiKey: "AIzaSyD6YPuvApDdABS6JrTL8Ck7vCJBGGn1Jts",
-    authDomain: "techzone-ecom.firebaseapp.com",
-    projectId: "techzone-ecom",
-    storageBucket: "techzone-ecom.appspot.com",
-    messagingSenderId: "769527614804",
-    appId: "1:769527614804:web:62d2429dbd595b845d0cc1",
-    measurementId: "G-SYV9WH4G8R"
-  };
-
-  // Initialize Firebase
-  const app = initializeApp(firebaseConfig);
-  const analytics = getAnalytics(app);
-</script>
+    <title>Home</title>
 </head>
 <body>
+<section>
+    <!-- Banner Section -->
+    <section id="banner" class="jumbotron text-center">
+    <div class="container">
+        <form th:action="@{/logout}" method="post">
+            <input class="btn btn-success" type="submit" value="Logout">
+        </form>
+    </div>
+        <h2>Hi, <span th:text="${username}"></span>!</h2>
+        <h1>Welcome to TechZone</h1>
+        <p>Find the best products for all your needs.</p>
+        <!-- Add a CTA button -->
+        <a href="#" class="btn btn-primary btn-lg">Shop Now</a>
+    </section>
 
+    <!-- Category Section -->
+    <section id="categories" class="container mt-4">
+        <h2 class="text-center mb-4">Shop by Categories</h2>
+        <div class="row">
+            <div class="col-lg-3 col-md-4 col-sm-6 mb-4" th:each="category : ${category}">
+                <div class="card">
+                    <img th:src="@{/user/category/{id}(id=${category.uuid})}" class="card-img-top" alt="Category Image">
+                    <div class="card-body">
+                        <h5 class="card-title" th:text="${category.name}">Category Name</h5>
+                        <a href="#" class="btn btn-primary">Explore</a>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div th:if="${category.totalPages > 1}">
+            <ul class="pagination justify-content-center">
+                <li th:if="${!category.first}" class="page-item">
+                    <a class="page-link" th:href="@{${'/app/?page=' + (category.number - 1)}}">Previous</a>
+                </li>
+                <li th:each="page : ${#numbers.sequence(0, category.totalPages - 1)}"
+                    th:class="${category.number == page ? 'page-item active' : 'page-item'}">
+                    <a class="page-link" th:href="@{${'/app/?page=' + page}}" th:text="${page + 1}"></a>
+                </li>
+                <li th:if="${!category.last}" class="page-item">
+                    <a class="page-link" th:href="@{${'/app/?page=' + (category.number + 1)}}">Next</a>
+                </li>
+            </ul>
+        </div>
+
+    </section>
+
+    <!-- Products Section -->
+    <section id="products" class="container mt-4">
+        <h2 class="text-center mb-4">Featured Products</h2>
+        <div class="row">
+            <div class="col-lg-3 col-md-4 col-sm-6 mb-4" th:each="product : ${product}">
+                <div class="card">
+                    <img th:src="@{/user/product/{id}(id=${product.uuid})}" class="card-img-top" alt="Product Image">
+                    <div class="card-body">
+                        <h5 class="card-title" th:text="${product.name}">Product Name</h5>
+                        <p class="card-text" th:text="${product.description}">Description of Product</p>
+<!--                        <p class="card-text" th:text="${'Price: $' + product.price}">Price: $X.XX</p>-->
+                        <a href="#" class="btn btn-primary">Add to Cart</a>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div th:if="${product.totalPages > 1}">
+            <ul class="pagination justify-content-center">
+                <li th:if="${!product.first}" class="page-item">
+                    <a class="page-link" th:href="@{${'/app/?page=' + (product.number - 1)}}">Previous</a>
+                </li>
+                <li th:each="page : ${#numbers.sequence(0, product.totalPages - 1)}"
+                    th:class="${product.number == page ? 'page-item active' : 'page-item'}">
+                    <a class="page-link" th:href="@{${'/app/?page=' + page}}" th:text="${page + 1}"></a>
+                </li>
+                <li th:if="${!product.last}" class="page-item">
+                    <a class="page-link" th:href="@{${'/app/?page=' + (product.number + 1)}}">Next</a>
+                </li>
+            </ul>
+        </div>
+
+    </section>
+
+</section>
 </body>
 </html>

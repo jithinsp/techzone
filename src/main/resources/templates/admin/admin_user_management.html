@@ -18,6 +18,7 @@
     <table class="table table-bordered table-striped table-hover table-responsive-xl">
         <thead>
         <tr>
+            <th>ID</th>
             <th>First Name</th>
             <th>Last Name</th>
             <th>Email</th>
@@ -28,6 +29,7 @@
         <tbody>
         <!-- Use Thymeleaf to iterate over the users and populate the table rows -->
         <tr th:each="user : ${listUsers}">
+            <td th:text="${user.uuid}"></td>
             <td th:text="${user.firstName}"></td>
             <td th:text="${user.lastName}"></td>
             <td th:text="${user.email}"></td>
@@ -39,6 +41,21 @@
         </tr>
         </tbody>
     </table>
+        <div th:if="${listUsers.totalPages > 1}">
+            <ul class="pagination justify-content-center">
+                <li th:if="${!listUsers.first}" class="page-item">
+                    <a class="page-link" th:href="@{${'/admin/getusers/?page=' + (listUsers.number - 1)}}">Previous</a>
+                </li>
+                <li th:each="page : ${#numbers.sequence(0, listUsers.totalPages - 1)}"
+                    th:class="${listUsers.number == page ? 'page-item active' : 'page-item'}">
+                    <a class="page-link" th:href="@{${'/admin/getusers/?page=' + page}}" th:text="${page + 1}"></a>
+                </li>
+                <li th:if="${!listUsers.last}" class="page-item">
+                    <a class="page-link" th:href="@{${'/admin/getusers/?page=' + (listUsers.number + 1)}}">Next</a>
+                </li>
+            </ul>
+        </div>
+
     </div>
 </section>
 </body>

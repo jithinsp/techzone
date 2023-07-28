@@ -1,9 +1,12 @@
 package com.ecommerce.techzone.service.admin;
 
 import com.ecommerce.techzone.entity.Category;
+import com.ecommerce.techzone.entity.Product;
 import com.ecommerce.techzone.entity.user.User;
 import com.ecommerce.techzone.repository.admin.CategoryRepository;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
@@ -15,8 +18,8 @@ public class CategoryService {
     @Autowired
     CategoryRepository categoryRepository;
 
-    public List<Category> getCategory() {
-        return categoryRepository.findAll();
+    public Page<Category> getCategory(Pageable pageable) {
+        return categoryRepository.findAll(pageable);
     }
 
 
@@ -25,11 +28,8 @@ public class CategoryService {
         return "success";
     }
 
-    public List<Category> searchCategory(String searchKey) {
-        List<Category> category = categoryRepository
-                .findByNameLike(searchKey)
-                .stream()
-                .toList();
+    public Page<Category> searchCategory(String searchKey, Pageable pageable) {
+        Page<Category> category = categoryRepository.findByNameContaining(searchKey, pageable);
         return category;
     }
 
@@ -41,6 +41,13 @@ public class CategoryService {
     public void enableCategory(UUID category_id) {
         Category category=categoryRepository.findById(category_id).get();
         category.setIsdeleted(true);
+        categoryRepository.save(category);
+    }
+    public Category getCategoryById(UUID id) {
+        return categoryRepository.findById(id).orElse(null);
+    }
+
+    public void updateCategory(Category category) {
         categoryRepository.save(category);
     }
 }
