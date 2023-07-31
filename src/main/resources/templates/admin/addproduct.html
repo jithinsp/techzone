@@ -13,9 +13,9 @@
                 <div class="card bg-light">
                     <div class="card-body">
                         <h2 class="text-center mb-4 text-primary">Add New Product</h2>
-                        <form th:action="@{/admin/product/addProduct}" th:object="${products}" method="post" class="login-background">
+                        <form th:action="@{/admin/product/addProduct}" th:object="${products}" enctype="multipart/form-data" method="post" class="login-background">
                             <div class="mb-3">
-                                <input type="text" th:field="*{name}" name="product_name" class="form-control" placeholder="Product Name" required="required">
+                                <input type="text" th:field="*{name}" name="product_name" class="form-control" enctype="multipart/form-data" placeholder="Product Name" required="required">
                             </div>
                             <div class="mb-3">
                                 <input type="text" th:field="*{description}" name="product_description" class="form-control" placeholder="Product Description">
@@ -29,12 +29,10 @@
                             </div>
 
                             <!-- To upload image -->
-                            <form th:action="@{/admin/product/uploadProductImage}" method="post" enctype="multipart/form-data" class="mb-3">
-                                <div class="input-group">
-                                    <input type="file" name="imageFile" accept="image/*" class="form-control">
+                            <div class="input-group">
+                                    <input type="file" name="images" accept="image/*" multiple class="form-control-file">
                                     <button type="submit" class="btn btn-info">Upload Image</button>
-                                </div>
-                            </form>
+                            </div>
 
                             <div class="mb-3">
                                 <button type="submit" value="add" class="btn btn-primary w-100 mt-2">Submit</button>

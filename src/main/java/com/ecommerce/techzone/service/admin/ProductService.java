@@ -21,13 +21,12 @@ public class ProductService {
     @Autowired
     CategoryRepository categoryRepository;
 
-    public String addProduct(Product product, UUID categoryId) {
+    public Product addProduct(Product product, UUID categoryId) {
 
         Category category = categoryRepository.findById(categoryId)
                         .orElseThrow(() -> new NotFoundException("Category not found"));
         product.setCategory(category);
-        productRepository.save(product);
-        return "success";
+        return productRepository.save(product);
     }
 
     public Page<Product> searchProduct(String searchKey, Pageable pageable) {

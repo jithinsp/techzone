@@ -36,12 +36,12 @@
 
 
 <div class="login-form">
-  <form th:action="@{/submitOtp}" method="post" class="login-background">
+  <form th:action="@{/otp/submitOtp}" method="post" class="login-background">
     <h2 class="text-center">Enter OTP</h2>
 
     <div class="row">
       <div class="col">
-        <input th:value="${email}" class="form-control"  readonly="readonly"  id="email" name="email" placeholder="">
+        <h2>Hi, <span th:text="${username}"></span>!</h2>
       </div>
     </div>
     <div class="row mt-2">
@@ -57,11 +57,5 @@
     </div>
   </form>
 </div>
-
-
-
-
-
-
 </body>
 </html>

@@ -12,6 +12,7 @@ import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
+import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
 @Controller
 public class UserController {
@@ -27,7 +28,8 @@ public class UserController {
     //to show login page
     @GetMapping("/login")
     public String showLoginForm(
-            @RequestParam(value = "error", required = false) String error, Model model) {
+            @RequestParam(value = "error", required = false) String error, RedirectAttributes redirectAttributes,
+            Model model) {
         System.out.println("inside login1");
         Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
         if (authentication == null || authentication instanceof AnonymousAuthenticationToken) {
@@ -38,21 +40,20 @@ public class UserController {
             System.out.println("inside login2");
             return "user/user_login";
         }
-        System.out.println("inside login3");
-        return "redirect:/app/";
-    }
-
-    @PostMapping("/login")
-    public String login(@RequestBody User user, Model model){
-        System.out.println("inside login post");
-        User newUser =userService.findByUsername(user.getUsername());
-        if(!newUser.isVerified()){
-            System.out.println("inside login to otp page");
-            return "user/enterOtp";
-        }
-        System.out.println("inside login post 2");
         return "redirect:/";
     }
+
+//    @PostMapping("/login")
+//    public String login(@ModelAttribute User user, Model model){
+//        System.out.println("inside login post");
+//        User newUser =userService.findByUsername(user.getUsername());
+//        if(!newUser.isVerified()){
+//            System.out.println("inside login to otp page");
+//            return "user/enterOtp";
+//        }
+//        System.out.println("inside login post 2");
+//        return "redirect:/";
+//    }
 
     //to show signup page
     @GetMapping("/signup")

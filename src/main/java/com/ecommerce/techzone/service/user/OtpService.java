@@ -3,6 +3,7 @@ package com.ecommerce.techzone.service.user;
 import com.ecommerce.techzone.entity.user.OTP;
 import com.ecommerce.techzone.entity.user.User;
 import com.ecommerce.techzone.repository.user.OtpRepository;
+import com.ecommerce.techzone.repository.user.UserRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -13,6 +14,9 @@ public class OtpService {
 
     @Autowired
     OtpRepository otpRepository;
+
+    @Autowired
+    UserRepository userRepository;
 
     @Autowired
     UserService userService;
@@ -37,23 +41,31 @@ public class OtpService {
     }
 
     public void sendMail(String email, String otp){
-//        String toEmail=user.getEmail();
         senderService.sendMail(email,
                 "TechZone - OTP",
                 "Your OTP is: "+ otp);
     }
 
-    public boolean verifyEmailOtp(String otp, String email) {
-        User user = userService.findByEmail(email);
+    public boolean verifyEmailOtp(String otp, String username) {
+        System.out.println("submit: "+username +" otp: " + otp);
+        User user = userService.findByUsername(username);
         if(user.isVerified()){
+            System.out.println("user already verified");
             return true;
         }
         OTP savedOtp = this.findByUser(user);
+        System.out.println(otp + "saved otp: "+savedOtp.getOtp());
             if(otp.equals(savedOtp.getOtp())){
+
+                System.out.println("setVerified: false"+user.isVerified());
                 user.setVerified(true);
+                userRepository.save(user);
+//                deleteotp
+                System.out.println("setVerified: true"+user.isVerified());
                 return true;
             }
 
+        System.out.println("setVerified: false");
         return false;
     }
 }

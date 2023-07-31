@@ -54,6 +54,8 @@ public class User {
     @JoinColumn(name = "role_id")
     private Role role;
 
+
+
     private boolean verified = true;
 
     public User(String email, String firstName, String lastName, String password) {

@@ -3,9 +3,9 @@ package com.ecommerce.techzone.controller.admin;
 import com.ecommerce.techzone.entity.Category;
 import com.ecommerce.techzone.entity.Image;
 import com.ecommerce.techzone.entity.Product;
-import com.ecommerce.techzone.entity.user.User;
-import com.ecommerce.techzone.service.admin.ImageService;
+import com.ecommerce.techzone.service.ImageService;
 import com.ecommerce.techzone.service.admin.ProductService;
+import com.fasterxml.jackson.core.JsonProcessingException;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
@@ -39,7 +39,7 @@ public class ProductController {
 
     //To show add products page
     @GetMapping("/addproduct")
-    public String showAddProductsPage(Model model){
+    public String showAddProductsPage(Model model) throws JsonProcessingException {
         List<Category> categories = productService.getCategory();
         model.addAttribute("category", categories);
         model.addAttribute("products",new Product());
@@ -48,50 +48,74 @@ public class ProductController {
 
     //To add new products
     @PostMapping("/addProduct")
-    public String addProduct(Product product, @RequestParam UUID categoryId){
-        productService.addProduct(product, categoryId);
+    public String addProduct(@RequestParam("categoryId")  UUID categoryId,
+                             @RequestParam("images") List<MultipartFile> imageFiles,
+                             @RequestParam("name") String name,
+                             @RequestParam("description") String description) throws IOException{
+        Product product = new Product();
+        product.setName(name);
+        product = productService.addProduct(product, categoryId);
+        List<Image> images = new ArrayList<>();
+        if(!imageFiles.get(0).getOriginalFilename().equals("")){
+            for (MultipartFile image : imageFiles) {
+                String fileLocation = handleFileUpload(image); // Save the image and get its file location
+                Image imageEntity = new Image(fileLocation,product); // Create an Image entity with the file location
+                imageEntity = imageService.save(imageEntity);
+                images.add(imageEntity); // Add the Image entity to the Product's list of images
+            }
+        }
+        product.setDescription(description);
+        if(!imageFiles.get(0).getOriginalFilename().equals("")){
+            product.setImages(images);
+        }
+        product = productService.addProduct(product, categoryId);
         return "redirect:/admin/product";
     }
 
-    //To upload image
-//    @PostMapping("/uploadProductImage")
-//    public String handleImageUpload(@RequestParam("imageFile") List<MultipartFile> imageFiles, @RequestParam("productId") UUID productId) {
-//        Product product = productService.getProductById(productId);
-//        List<Image> images = new ArrayList<>();
-//        if(!imageFiles.get(0).getOriginalFilename().equals("")){
-//            for (MultipartFile image : imageFiles) {
-//                String fileLocation = handleFileUpload(image); // Save the image and get its file location
-//                Image imageEntity = new Image(fileLocation,product); // Create an Image entity with the file location
-//                imageEntity = imageService.save(imageEntity);
-//                images.add(imageEntity); // Add the Image entity to the Product's list of images
-//            }
-//        }
-//    }
+    private String handleFileUpload(MultipartFile file) throws IOException {
+        // Define the directory to save the file in
+        String rootPath = System.getProperty("user.dir");
+        String uploadDir = rootPath + "/src/main/resources/static/uploads";
 
-//    private String handleFileUpload(MultipartFile file) throws IOException {
-//        // Define the directory to save the file in
-//        String rootPath = System.getProperty("user.dir");
-//        String uploadDir = rootPath + "/src/main/resources/static/uploads";
-//
-//
-//        // Create the directory if it doesn't exist
-//        File dir = new File(uploadDir);
-//        if (!dir.exists()) {
-//            dir.mkdirs();
-//        }
-//
-//        // Generate a unique file name for the uploaded file
-//        String fileName = UUID.randomUUID().toString() + "-" + file.getOriginalFilename();
-//
-//        // Save the file to the upload directory
-//        String filePath = uploadDir + "/" + fileName;
-//        Path path = Paths.get(filePath);
-//        System.out.println(path);
-//        Files.copy(file.getInputStream(), path, StandardCopyOption.REPLACE_EXISTING);
-//
-//        // Return the file path
-//        return fileName;
-//    }
+        // Create the directory if it doesn't exist
+        File dir = new File(uploadDir);
+        if (!dir.exists()) {
+            dir.mkdirs();
+        }
+
+        // Generate a unique file name for the uploaded file
+        String fileName = UUID.randomUUID().toString() + "-" + file.getOriginalFilename();
+
+        // Save the file to the upload directory
+        String filePath = uploadDir + "/" + fileName;
+        Path path = Paths.get(filePath);
+        System.out.println(path);
+        Files.copy(file.getInputStream(), path, StandardCopyOption.REPLACE_EXISTING);
+
+        // Return the file path
+        return fileName;
+    }
+
+    private void handleDelete(String fileName) throws IOException {
+        // Define the directory
+        String rootPath = System.getProperty("user.dir");
+        String uploadDir = rootPath + "/src/main/resources/static/uploads";
+
+        // Get the file path
+        String filePath = uploadDir + "/" + fileName;
+
+        // Create a file object for the file to be deleted
+        File file = new File(filePath);
+
+        // Check if the file exists
+        if (file.exists()) {
+            // Delete the file
+            file.delete();
+            System.out.println("File deleted successfully!");
+        } else {
+            System.out.println("File not found!");
+        }
+    }
 
 
     @GetMapping("/search")

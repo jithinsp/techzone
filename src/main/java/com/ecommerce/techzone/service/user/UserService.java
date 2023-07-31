@@ -1,9 +1,11 @@
 package com.ecommerce.techzone.service.user;
 
 import com.ecommerce.techzone.dto.CreateUserRequest;
+import com.ecommerce.techzone.entity.user.OTP;
 import com.ecommerce.techzone.entity.user.Role;
 import com.ecommerce.techzone.entity.user.User;
 import com.ecommerce.techzone.repository.admin.RoleRepository;
+import com.ecommerce.techzone.repository.user.OtpRepository;
 import com.ecommerce.techzone.repository.user.UserRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.crypto.password.PasswordEncoder;
@@ -19,6 +21,9 @@ public class UserService {
 
     @Autowired
     RoleRepository roleRepository;
+
+    @Autowired
+    OtpRepository otpRepository;
 
     @Autowired
     private PasswordEncoder passwordEncoder;
@@ -77,5 +82,15 @@ public class UserService {
     }
     public User findByUsername(String username) {
         return userRepository.findByUsername(username);
+    }
+
+    public void saveOTP(String otp,String username) {
+//        Optional<User> user_db = userRepository.findById(id);
+//        User updateUser = user_db.get();
+        User user = findByUsername(username);
+        OTP otps = new OTP();
+        otps.setOtp(otp);
+        otps.setUser(user);
+        otpRepository.save(otps);
     }
 }
